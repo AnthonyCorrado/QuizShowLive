@@ -9088,3 +9088,17 @@ a.button {
   opacity: 0;
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
+
+.points-button {
+  width: 25%;
+  height: 10%;
+  display: inline-block;
+  float: left;
+  text-align: center;
+  border: 1px solid black; }
+
+.game-divider {
+  width: 100%;
+  margin-top: 5%;
+  height: 25px;
+  background-color: gray; }

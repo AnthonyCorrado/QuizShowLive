@@ -1,23 +1,8 @@
-<ul class="list">
-    <li class="item">
-      Title: {{title}}
-    </li>
-    <div class="button-bar">
-      <a class="button button-small">200</a>
-      <a class="button button-small">400</a>
-      <a class="button button-small">600</a>
-      <a class="button button-small">800</a>
+<ion-content class="list" ng-repeat="category in categoryNames">
+    <ion-item class="item">
+      {{category}}
+    </ion-item>
+    <div class="button-container" ng-repeat="value in pointValues">
+      <a class="points-button">{{value}}</a>
     </div>
-    <li class="item">
-      Sports
-    </li>
-    <li class="item">
-      Science
-    </li>
-    <li class="item">
-      Entertainment
-    </li>
-    <li class="item">
-      Science
-    </li>
-</ul>
+</ion-content>
