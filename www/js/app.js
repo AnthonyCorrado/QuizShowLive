@@ -4,11 +4,16 @@
     'ionic',
 
     // third-party
+    'ui.router',
+    'ngAnimate',
 
     // core app modules
     'app.layout',
-    'app.directives'
+    'app.directives',
+
     // features
+    'app.game'
+
   ])
 
 })();

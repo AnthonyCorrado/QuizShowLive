@@ -20,14 +20,14 @@
 
     $urlRouterProvider.otherwise('/');
 
-    // $stateProvider
+    $stateProvider
 
-    //   .state('dashboard', {
-    //     url: '/dashboard',
-    //     templateUrl: 'app/dashboard/dashboard.html',
-    //     controller: 'Dashboard',
-    //     controllerAs: 'vm'
-    //   })     
+      .state('game', {
+        url: '/game',
+        templateUrl: 'js/game/game.html',
+        controller: 'Game',
+        controllerAs: 'vm'
+      })     
 
   });
 })();

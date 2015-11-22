@@ -10,6 +10,8 @@
       
       var directive = {
         scope: {
+          categoryName: '=',
+          points: '=' 
         },
         link: function (scope, element, attrs) {
         },

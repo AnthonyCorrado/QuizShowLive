@@ -18,6 +18,10 @@
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
 
+    <!-- vendor add-ons -->
+    <script src='lib/angular-ui-router/release/angular-ui-router.js'></script>
+    <script src='lib/angular-animate/angular-animate.min.js'></script>
+
     <!-- main module -->
     <script type='application/javascript' src='js/app.js'></script>
     <script type='application/javascript' src='js/app.config.js'></script>
@@ -29,6 +33,11 @@
     <!-- directives -->
     <script type='application/javascript' src='js/directives/directives.module.js'></script>
     <script type='application/javascript' src='js/directives/quizCategories.js'></script>
+
+    <!-- features -->
+    <script type='application/javascript' src='js/game/game.module.js'></script>
+    <script type='application/javascript' src='js/game/game.js'></script>
+
 
   </head>
   <body ng-app="app">
