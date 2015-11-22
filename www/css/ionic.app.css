@@ -9102,3 +9102,14 @@ a.button {
   margin-top: 5%;
   height: 25px;
   background-color: gray; }
+
+.contestant-container {
+  width: 100%;
+  height: 200px;
+  background-color: purple; }
+
+.contestant-card {
+  width: 50%;
+  height: 50%;
+  float: left;
+  background-color: red; }
