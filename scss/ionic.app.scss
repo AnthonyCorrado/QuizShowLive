@@ -21,3 +21,18 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
+.points-button {
+  width: 25%;
+  height: 10%;
+  display: inline-block;
+  float: left;
+  text-align: center;
+  border: 1px solid black;
+}
+
+.game-divider {
+  width: 100%;
+  margin-top: 5%; 
+  height: 25px;
+  background-color: gray;
+}
