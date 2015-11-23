@@ -5,26 +5,30 @@
     .module('app.games')
     .factory('GamesService', GamesService);
 
-    GamesService.$inject = ['$q', '$timeout'];
+    GamesService.$inject = ['$q', '$timeout', '$firebaseObject'];
 
-    function GamesService($q, $timeout) {
+    function GamesService($q, $timeout, $firebaseObject) {
 
+      // temp game setup MOCK DATA
+      var data = {
+        "players": {
+          '39fasflkrwlkjr': 'Anthony',
+          '3249dfj_fda12k': 'Chip',
+          '9039434uoj300n': 'Sally',
+          '9d_erjk023hfkf': 'Gertrud'
+        },
+        "timestamp": Firebase.ServerValue.TIMESTAMP
+      };
+        
       var service = {
           getAllGames: getAllGames
       };
       return service;
 
       function getAllGames() {
-        console.log('getAllGames has been called');
-        // var deferred = $q.defer();
-        // var recognition = new webkitSpeechRecognition();
-        // recognition.start();
-        // recognition.onresult = function(event) {
-        //   console.log(event.results[0][0].transcript);
-        //   deferred.resolve(event.results[0][0].transcript);
-        // };
-        // return deferred.promise;
+        var gamesRef = new Firebase('https://quizshowlive.firebaseio.com/games');
+        // gamesRef.push(data);
+        return $firebaseObject(gamesRef);
       };
-
     }
 })();

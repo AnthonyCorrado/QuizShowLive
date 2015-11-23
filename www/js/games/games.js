@@ -9,22 +9,23 @@
 
     function Games($scope, $stateParams, GamesService) {
       var vm = this;
+      vm.games = GamesService.getAllGames();
 
       // temp mock games
-      vm.games = [
-        {
-          id: 1,
-          players: [
-            23, 12, 11, 4
-          ]
-        },
-        {
-          id: 2,
-          players: [
-            2, 10, 31, 9
-          ]
-        }
-      ]
+      // vm.games = [
+      //   {
+      //     id: 1,
+      //     players: [
+      //       23, 12, 11, 4
+      //     ]
+      //   },
+      //   {
+      //     id: 2,
+      //     players: [
+      //       2, 10, 31, 9
+      //     ]
+      //   }
+      // ]
       // temp mock players
       vm.players = [
         {

@@ -2,8 +2,8 @@
   <ion-content class="has-header">
     <h4>Completed Games</h4>
     <div class="list">
-      <a ng-repeat="game in vm.games" class="item" ng-href="#/games/{{game.id}}">
-        Game {{game.id}}
+      <a ng-repeat="(key, game) in vm.games" class="item" ng-href="#/games/{{key}}">
+        Game: {{game.timestamp | date:'short'}}
       </a>
     </div>
   </ion-content>
