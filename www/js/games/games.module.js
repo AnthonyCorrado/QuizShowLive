@@ -1,5 +1,5 @@
 (function() {
   'use strict';
 
-  angular.module('app.game', []);
+  angular.module('app.games', []);
 })();

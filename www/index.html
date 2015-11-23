@@ -3,12 +3,11 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title></title>
+    <title>Quiz Show Live</title>
 
     <!-- <link href="lib/ionic/css/ionic.css" rel="stylesheet"> -->
     <!-- <link href="css/style.css" rel="stylesheet"> -->
 
-    IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
    
 
@@ -36,20 +35,19 @@
     <script type='application/javascript' src='js/directives/gameContestants.js'></script>
 
     <!-- features -->
-    <script type='application/javascript' src='js/game/game.module.js'></script>
-    <script type='application/javascript' src='js/game/game.js'></script>
+    <script type='application/javascript' src='js/games/games.module.js'></script>
+    <script type='application/javascript' src='js/games/games.js'></script>
 
 
   </head>
   <body ng-app="app">
-
     <ion-pane>
       <ion-header-bar class="bar-stable">
         <h1 class="title">Quiz Show Live</h1>
       </ion-header-bar>
-      <ion-content>
-        <div ng-include="'js/layout/shell.html'"></div>
-      </ion-content>
+
+      <ion-nav-view></ion-nav-view>
+      
     </ion-pane>
   </body>
 </html>

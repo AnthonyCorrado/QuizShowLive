@@ -4,7 +4,6 @@
     'ionic',
 
     // third-party
-    'ui.router',
     'ngAnimate',
 
     // core app modules
@@ -12,7 +11,7 @@
     'app.directives',
 
     // features
-    'app.game'
+    'app.games'
 
   ])
 
