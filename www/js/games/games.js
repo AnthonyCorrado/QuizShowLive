@@ -5,10 +5,9 @@
     .module('app.games')
     .controller('Games', Games);
 
-    Games.$inject = ['$scope', '$stateParams'];
+    Games.$inject = ['$scope', '$stateParams', 'GamesService'];
 
-    function Games($scope, $stateParams) {   
-      console.log('Games controller was called');
+    function Games($scope, $stateParams, GamesService) {
       var vm = this;
 
       // temp mock games
