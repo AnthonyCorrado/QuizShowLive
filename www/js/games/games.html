@@ -1,8 +1,9 @@
 <ion-view title="Games">
-  <ion-content>
+  <ion-content class="has-header">
+    <h4>Completed Games</h4>
     <div class="list">
       <a ng-repeat="game in vm.games" class="item" ng-href="#/games/{{game.id}}">
-        This is {{game.id}}
+        Game {{game.id}}
       </a>
     </div>
   </ion-content>
