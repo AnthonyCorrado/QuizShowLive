@@ -13,10 +13,11 @@
       var data = {
         "players": {
           '39fasflkrwlkjr': 'Anthony',
-          '32498sdlj_aio0': 'Michael',
+          '3249dfj_fda12k': 'Chip',
           '9039434uoj300n': 'Sally',
-          '9dfgerjk_03432': 'Marsha'
-        }
+          '9d_erjk023hfkf': 'Gertrud'
+        },
+        "timestamp": Firebase.ServerValue.TIMESTAMP
       };
         
       var service = {
@@ -26,20 +27,8 @@
 
       function getAllGames() {
         var gamesRef = new Firebase('https://quizshowlive.firebaseio.com/games');
-        return $firebaseObject(gamesRef);
-        // var deferred = $q.defer();
-        // var recognition = new webkitSpeechRecognition();
-        // recognition.start();
-        // recognition.onresult = function(event) {
-        //   console.log(event.results[0][0].transcript);
-        //   deferred.resolve(event.results[0][0].transcript);
-        // };
-        // return deferred.promise;
-      };
-
-      // MOCK FIREBASE DATA
-        // var playerRef = gamesRef.child('players').set('id_dfasdfk309903')
         // gamesRef.push(data);
-
+        return $firebaseObject(gamesRef);
+      };
     }
 })();
