@@ -4,6 +4,7 @@
     'ionic',
 
     // third-party
+    'firebase',
     'ngAnimate',
 
     // core app modules
