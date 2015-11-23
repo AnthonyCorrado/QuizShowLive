@@ -29,7 +29,7 @@
       .state('game', {
         url: "/games/:gameId",
         templateUrl: "js/games/game.html",
-        controller: 'Games',
+        controller: 'Game',
         controllerAs: 'vm'
       })
 
