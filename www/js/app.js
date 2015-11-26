@@ -12,6 +12,7 @@
     'app.directives',
 
     // features
+    'app.login',
     'app.games'
 
   ])

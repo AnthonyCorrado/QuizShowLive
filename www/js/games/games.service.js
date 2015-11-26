@@ -41,9 +41,10 @@
 
       function createNewGame() {
         var gamesRef = new Firebase('https://quizshowlive.firebaseio.com/games');
-        var newGameRef = gamesRef.push(data);
-        var gameId = newGameRef.key();
-        var deferred = $q.defer();
+
+        // var newGameRef = gamesRef.push(data);
+        // var gameId = newGameRef.key();
+        // var deferred = $q.defer();
         deferred.resolve(gameId);
         // deferred.resolve(gamesRef.push(data));
         // var recognition = new webkitSpeechRecognition();
