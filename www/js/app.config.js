@@ -27,9 +27,16 @@
       })  
 
       .state('game', {
-        url: "/games/:gameId",
-        templateUrl: "js/games/game.html",
-        controller: 'Games',
+        url: '/games/:gameId',
+        templateUrl: 'js/games/game.html',
+        controller: 'Game',
+        controllerAs: 'vm'
+      })
+
+      .state('login', {
+        url: '/login',
+        templateUrl: 'js/login/login.html',
+        controller: 'Login',
         controllerAs: 'vm'
       })
 

@@ -2,9 +2,12 @@
   <ion-content class="has-header">
     <h4>Completed Games</h4>
     <div class="list">
-      <a ng-repeat="(key, game) in vm.games" class="item" ng-href="#/games/{{key}}">
+      <a ng-repeat="(key, game) in vm.allGames" class="item" ng-href="#/games/{{key}}">
         Game: {{game.timestamp | date:'short'}}
       </a>
     </div>
+    <button class="button button-full button-outline button-balanced" ng-click="vm.startGame()">
+      Join a new game
+    </button>
   </ion-content>
 </ion-view>
