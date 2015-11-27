@@ -5,19 +5,34 @@
     .module('app.services')
     .factory('Authenticator', Authenticator);
 
-    Authenticator.$inject = ['$firebaseAuth'];
+    Authenticator.$inject = ['$firebaseAuth', '$q'];
 
-    function Authenticator($firebaseAuth) {
+    function Authenticator($firebaseAuth, $q) {
+      var ref = new Firebase('https://quizshowlive.firebaseio.com'); 
         
       var service = {
           firebaseAuth: firebaseAuth,
+          createUser: createUser
       };
       return service;
 
       function firebaseAuth() {
-        var ref = new Firebase('https://quizshowlive.firebaseio.com');
         return $firebaseAuth(ref);  
       };
+
+      function createUser(user) {
+        var deferred = $q.defer();
+        ref.createUser(user, function(error, userData) {
+          if (error) {
+            deferred.reject(error);
+            console.log(error);
+          } else {
+            deferred.resolve(userData);
+            console.log(userData);
+          }
+        });
+        return deferred.promise;
+      }
 
     }
 })();

@@ -25,22 +25,10 @@
 
     $stateProvider
 
-      .state('games', {
-        url: '/games',
-        templateUrl: 'js/games/games.html',
-        controller: 'Games',
-        controllerAs: 'vm',
-        resolve: {
-          currentAuth: function(Authenticator) {
-            return Authenticator.firebaseAuth().$requireAuth();
-          }
-        }
-      })  
-
-      .state('game', {
-        url: '/games/:gameId',
-        templateUrl: 'js/games/game.html',
-        controller: 'Game',
+      .state('register', {
+        url: '/register',
+        templateUrl: 'js/register/register.html',
+        controller: 'Register',
         controllerAs: 'vm'
       })
 
@@ -61,6 +49,26 @@
           }
         }
       })
+
+      .state('games', {
+        url: '/games',
+        templateUrl: 'js/games/games.html',
+        controller: 'Games',
+        controllerAs: 'vm',
+        resolve: {
+          currentAuth: function(Authenticator) {
+            return Authenticator.firebaseAuth().$requireAuth();
+          }
+        }
+      })  
+
+      .state('game', {
+        url: '/games/:gameId',
+        templateUrl: 'js/games/game.html',
+        controller: 'Game',
+        controllerAs: 'vm'
+      })
+
 
     $urlRouterProvider.otherwise('/');
  
