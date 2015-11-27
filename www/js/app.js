@@ -10,6 +10,7 @@
     // core app modules
     'app.layout',
     'app.directives',
+    'app.services',
 
     // features
     'app.login',
