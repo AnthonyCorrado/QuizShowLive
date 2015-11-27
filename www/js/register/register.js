@@ -15,7 +15,6 @@
           email: vm.email,
           password: vm.password
         };
-
         Authenticator.createUser(user)
           .then(function(userData) {
             $state.go('games');
@@ -24,6 +23,5 @@
             console.log('Failed:', reason);
         });
       }
-
     }
 })();
