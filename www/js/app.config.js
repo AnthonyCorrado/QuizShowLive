@@ -3,7 +3,7 @@
 
   angular
   .module('app')
-  .run(function($ionicPlatform) {
+  .run(function($ionicPlatform, $rootScope, $state) {
     $ionicPlatform.ready(function() {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -12,6 +12,12 @@
       }
       if(window.StatusBar) {
         StatusBar.styleDefault();
+      }
+    });
+    $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
+      if (error === 'AUTH_REQUIRED') {
+        console.log('error in auth');
+        // $state.go('login');
       }
     });
   })
@@ -23,7 +29,12 @@
         url: '/games',
         templateUrl: 'js/games/games.html',
         controller: 'Games',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        resolve: {
+          currentAuth: function(Authenticator) {
+            return Authenticator.firebaseAuth().$requireAuth();
+          }
+        }
       })  
 
       .state('game', {
@@ -37,14 +48,21 @@
         url: '/login',
         templateUrl: 'js/login/login.html',
         controller: 'Login',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        resolve: {
+          requireNoAuth: function($state, Authenticator) {
+            return Authenticator.firebaseAuth().$requireAuth()
+              .then(function(auth){
+                console.log(auth);
+                $state.go('games');
+              }, function(error){
+                return;
+            });
+          }
+        }
       })
 
-    $urlRouterProvider.otherwise('/games');
-
-      // .state('games.detail', {
-      //   url: 'games/:gameId',
-      //   templateUrl: 'js/games/game.html'
-      // });  
+    $urlRouterProvider.otherwise('/');
+ 
   });
 })();
