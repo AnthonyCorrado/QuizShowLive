@@ -12,6 +12,7 @@
         
       var service = {
           firebaseAuth: firebaseAuth,
+          login: login,
           logout: logout,
           createUser: createUser
       };
@@ -20,6 +21,18 @@
       function firebaseAuth() {
         return $firebaseAuth(ref);  
       };
+
+      function login(user) {
+        var deferred = $q.defer();
+        ref.authWithPassword(user, function(error, authData) {
+          if (error) {
+            deferred.reject(error);
+          } else {
+            deferred.resolve(authData);
+          }
+        });
+        return deferred.promise;
+      }
 
       function logout() {
         return this.firebaseAuth().$unauth();
@@ -30,10 +43,8 @@
         ref.createUser(user, function(error, userData) {
           if (error) {
             deferred.reject(error);
-            console.log(error);
           } else {
             deferred.resolve(userData);
-            console.log(userData);
           }
         });
         return deferred.promise;

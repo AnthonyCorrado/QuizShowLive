@@ -2,29 +2,26 @@
   'use strict';
 
   angular
-  .module('app.layout')
-  .controller('Login', Login);
+    .module('app.layout')
+    .controller('Login', Login);
 
-  Login.$inject = ['Authenticator', '$state'];
+    Login.$inject = ['Authenticator', '$state'];
 
-  function Login(Authenticator, $state) {
-    var vm = this;
+    function Login(Authenticator, $state) {
+      var vm = this;
 
-    vm.userLogin = function() {
-      var user = {
-        email: vm.email,
-        password: vm.password
-      };
-      Authenticator.firebaseAuth().$authWithPassword(user)
-        .then(function(auth) {
-          console.log(auth);
-          $state.go('games');
-        }, function(error) {
-          vm.error = error.code;
-          console.log(error);
-      });
-      console.log(vm.userForm.$valid);
+      vm.userLogin = function() {
+        var user = {
+          email: vm.email,
+          password: vm.password
+        };
+        Authenticator.login(user)
+          .then(function(userData) {
+            $state.go('games');
+            console.log('Success:', userData);
+          }, function(reason) {
+            console.log('Failed:', reason);
+        });
+      }
     }
-  }
-  
 })();
