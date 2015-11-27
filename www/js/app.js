@@ -13,6 +13,7 @@
     'app.services',
 
     // features
+    'app.register',
     'app.login',
     'app.games'
 

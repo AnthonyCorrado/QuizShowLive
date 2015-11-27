@@ -1,0 +1,23 @@
+<ion-view title="Register">
+  <ion-content class="has-header">
+    <form role="form" name="vm.userForm">
+      <div class="list">
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Email</span>
+          <input type="text" placeholder="Email" ng-model="vm.email">
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Password</span>
+          <input type="password" placeholder="Password" ng-model="vm.password">
+        </label>
+      </div>
+      <button ng-click="vm.createUser()" class="button button-block button-outline  button-balanced">
+        Create User
+      </button>
+    </form>
+
+    <div ng-show="vm.error">
+      <span>{{ vm.error }}</span>
+    </div>
+  </ion-content>
+</ion-view>
