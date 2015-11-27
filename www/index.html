@@ -31,7 +31,7 @@
 
     <!-- layout module -->
     <script type='application/javascript' src='js/layout/layout.module.js'></script>
-    <script type='application/javascript' src='js/layout/shell.js'></script>
+    <script type='application/javascript' src='js/layout/topnav.js'></script>
 
     <!-- directives -->
     <script type='application/javascript' src='js/directives/directives.module.js'></script>
@@ -61,10 +61,8 @@
   </head>
   <body ng-app="app">
     <ion-pane>
-      <ion-header-bar class="bar-stable">
-        <h1 class="title">Quiz Show Live</h1>
-      </ion-header-bar>
-
+    
+      <div data-ng-include="'js/layout/topnav.html'"></div>
       <ion-nav-view></ion-nav-view>
 
     </ion-pane>

@@ -12,6 +12,7 @@
         
       var service = {
           firebaseAuth: firebaseAuth,
+          logout: logout,
           createUser: createUser
       };
       return service;
@@ -19,6 +20,10 @@
       function firebaseAuth() {
         return $firebaseAuth(ref);  
       };
+
+      function logout() {
+        return this.firebaseAuth().$unauth();
+      }
 
       function createUser(user) {
         var deferred = $q.defer();
