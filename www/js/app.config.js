@@ -57,7 +57,6 @@
         controllerAs: 'vm',
         resolve: {
           currentAuth: function(Authenticator) {
-             console.log(Authenticator.firebaseAuth().$requireAuth());
             return Authenticator.firebaseAuth().$requireAuth();
           }
         }
@@ -70,6 +69,12 @@
         controllerAs: 'vm'
       })
 
+      .state('lobby', {
+        template: '',
+        params: { userId: null },
+        controller: 'Lobby',
+        controllerAs: 'vm'
+      })
 
     $urlRouterProvider.otherwise('/');
  
