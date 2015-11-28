@@ -15,6 +15,7 @@
     // features
     'app.register',
     'app.login',
+    'app.lobby',
     'app.games'
 
   ])

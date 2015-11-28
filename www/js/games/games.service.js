@@ -8,6 +8,7 @@
     GamesService.$inject = ['$q', '$timeout', '$firebaseObject'];
 
     function GamesService($q, $timeout, $firebaseObject) {
+      var gamesRef = new Firebase('https://quizshowlive.firebaseio.com/games');
 
       // temp game setup MOCK DATA
       var data = {
@@ -23,12 +24,12 @@
       var service = {
           getAllGames: getAllGames,
           getGameDetails: getGameDetails,
-          createNewGame: createNewGame
+          createNewGame: createNewGame,
+          getLastGame: getLastGame
       };
       return service;
 
       function getAllGames() {
-        var gamesRef = new Firebase('https://quizshowlive.firebaseio.com/games');
         // gamesRef.push(data);
         return $firebaseObject(gamesRef);
       };
@@ -40,8 +41,22 @@
       };
 
       function createNewGame() {
-        var gamesRef = new Firebase('https://quizshowlive.firebaseio.com/games');
-        deferred.resolve(gameId);
+        gamesRef.once('value', function(gamesSnapshot) {
+          var games = gamesSnapshot.val();
+          console.log(games);
+        })
+        // var deferred = $q.defer();
+        // deferred.resolve(gameId);
+        // return deferred.promise;
+      };
+
+      function getLastGame() {
+        var deferred = $q.defer();
+        gamesRef.orderByValue().limitToLast(1).once('value', function(gamesSnapshot) {
+          var lastGame = gamesSnapshot.val();
+          var gameId = Object.keys(lastGame);
+          deferred.resolve(lastGame[gameId]);
+        });
         return deferred.promise;
       }
     }
