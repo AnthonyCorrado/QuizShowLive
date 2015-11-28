@@ -57,6 +57,7 @@
         controllerAs: 'vm',
         resolve: {
           currentAuth: function(Authenticator) {
+             console.log(Authenticator.firebaseAuth().$requireAuth());
             return Authenticator.firebaseAuth().$requireAuth();
           }
         }

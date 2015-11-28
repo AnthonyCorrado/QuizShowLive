@@ -16,8 +16,7 @@
           logout: logout,
           createUser: createUser,
           userSession: userSession,
-          sessionChange: sessionChange
-          
+          sessionHasChanged: sessionHasChanged    
       };
       return service;
 
@@ -47,9 +46,17 @@
           if (error) {
             deferred.reject(error);
           } else {
+            // saves new user to users table
             ref.child('users').child(userData.uid).set({
-              name: user.username
-            })
+              email: user.email,
+              username: user.username
+            }, function(error, authData) {
+              if (error) {
+                deferred.reject(error);
+              } else {
+                deferred.resolve(authData);
+              }
+            });
             deferred.resolve(userData);
           }
         });
@@ -60,13 +67,13 @@
         return ref.getAuth()
       }
 
-      function sessionChange() {
+      function sessionHasChanged() {
         return ref.onAuth(authDataCallback)
       }
 
       function authDataCallback(authData) {
         // transmits auth data or null. Received by topnav controller
-        $rootScope.$broadcast('sessionChange', {
+        $rootScope.$broadcast('sessionHasChanged', {
           authData: authData
         });
        return authData;

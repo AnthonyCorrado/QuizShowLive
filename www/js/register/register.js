@@ -18,7 +18,7 @@
         };
         Authenticator.createUser(user)
           .then(function(userData) {
-            $state.go('games');
+            $state.go('login');
             console.log('Success:', userData);
           }, function(reason) {
             console.log('Failed:', reason);
