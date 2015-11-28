@@ -29,6 +29,15 @@
       }
 
       function startNewLobby() {
+        GamesService.generateCategories()
+          .then(function(keys) {
+            console.log(keys);
+          })
+        // console.log(GamesService.setupNewGame());
+        // GamesService.getAllCatKeys()
+        //   .then(function(data) {
+        //     console.log(data);
+        //   })
         console.log('a new lobby is being created');
       }
 

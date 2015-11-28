@@ -5,10 +5,11 @@
     .module('app.games')
     .factory('GamesService', GamesService);
 
-    GamesService.$inject = ['$q', '$timeout', '$firebaseObject'];
+    GamesService.$inject = ['$q', '$firebaseObject', 'lodash'];
 
-    function GamesService($q, $timeout, $firebaseObject) {
+    function GamesService($q, $firebaseObject, lodash) {
       var gamesRef = new Firebase('https://quizshowlive.firebaseio.com/games');
+      var categoriesRef = new Firebase('https://quizshowlive.firebaseio.com/categories');
 
       // temp game setup MOCK DATA
       var data = {
@@ -24,7 +25,8 @@
       var service = {
           getAllGames: getAllGames,
           getGameDetails: getGameDetails,
-          createNewGame: createNewGame,
+          setupNewGame: setupNewGame,
+          generateCategories: generateCategories,
           getLastGame: getLastGame
       };
       return service;
@@ -40,15 +42,22 @@
         return $firebaseObject(gamesRef)
       };
 
-      function createNewGame() {
-        gamesRef.once('value', function(gamesSnapshot) {
-          var games = gamesSnapshot.val();
-          console.log(games);
+      function setupNewGame() {
+        gamesRef.push({
+          timestamp: Firebase.ServerValue.TIMESTAMP,
+          openEnrollment: true,
+          categories: categories,
+          players: []
         })
-        // var deferred = $q.defer();
-        // deferred.resolve(gameId);
-        // return deferred.promise;
+        return 'kittens';
       };
+
+      function generateCategories() {
+        return getAllCatKeys()
+          .then(function(keys) {
+            console.log(selectRandomCats(keys));
+          })
+      }
 
       function getLastGame() {
         var deferred = $q.defer();
@@ -59,5 +68,37 @@
         });
         return deferred.promise;
       }
+
+      /* 
+       * private methods
+      */
+
+      function getAllCatKeys() {
+        var deferred = $q.defer();
+        var catKeys = [];
+        categoriesRef.once('value', function(categoriesSnapshot) {
+          categoriesSnapshot.forEach(function(category) {
+            var key = category.key();
+            catKeys.push(key)
+          })
+          deferred.resolve(catKeys);
+        });
+        return deferred.promise;
+      }
+
+      function selectRandomCats(keys) {
+        var catLimit = 5; // set amount of selected categories for a game
+        var totalCategories = keys.length - 1;
+        var selectedCats = [];
+        var uniqueCats = [];
+
+        while (uniqueCats.length < catLimit) {
+          var randomNum = lodash.random(totalCategories);
+          selectedCats.push(keys[randomNum]);
+          uniqueCats = lodash.uniq(selectedCats) 
+        }
+        return uniqueCats;
+      }
+
     }
 })();

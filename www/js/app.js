@@ -6,6 +6,7 @@
     // third-party
     'firebase',
     'ngAnimate',
+    'ngLodash',
 
     // core app modules
     'app.layout',
