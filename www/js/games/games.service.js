@@ -5,9 +5,9 @@
     .module('app.games')
     .factory('GamesService', GamesService);
 
-    GamesService.$inject = ['$q', '$firebaseObject', 'lodash'];
+    GamesService.$inject = ['$q', '$firebaseObject', 'lodash', 'UsersService'];
 
-    function GamesService($q, $firebaseObject, lodash) {
+    function GamesService($q, $firebaseObject, lodash, UsersService) {
       var gamesRef = new Firebase('https://quizshowlive.firebaseio.com/games');
       var categoriesRef = new Firebase('https://quizshowlive.firebaseio.com/categories');
 
@@ -27,12 +27,12 @@
           getGameDetails: getGameDetails,
           setupNewGame: setupNewGame,
           generateCategories: generateCategories,
-          getLastGame: getLastGame
+          getLastGame: getLastGame,
+          addPlayer: addPlayer
       };
       return service;
 
       function getAllGames() {
-        // gamesRef.push(data);
         return $firebaseObject(gamesRef);
       };
 
@@ -42,31 +42,64 @@
         return $firebaseObject(gamesRef)
       };
 
-      function setupNewGame() {
-        gamesRef.push({
-          timestamp: Firebase.ServerValue.TIMESTAMP,
-          openEnrollment: true,
-          categories: categories,
-          players: []
-        })
+      function setupNewGame(playerId) {
+        var gameId;
+        generateCategories()
+          .then(function(categories) {
+            console.log(categories);
+            var gameId = createBaseGame();
+            // save categories to pregame lobby
+            gamesRef.child(gameId).update({
+              categories: categories,
+              players: playerId
+            })
+
+          })
         return 'kittens';
       };
+
+      function createBaseGame(categories, playerId) {
+        var gameData = gamesRef.push({
+          timestamp: Firebase.ServerValue.TIMESTAMP,
+          openEnrollment: true
+        });
+        return gameData.key();
+
+      }
 
       function generateCategories() {
         return getAllCatKeys()
           .then(function(keys) {
-            console.log(selectRandomCats(keys));
+            return selectRandomCats(keys);
           })
       }
 
-      function getLastGame() {
+      function getLastGame(option) {
         var deferred = $q.defer();
         gamesRef.orderByValue().limitToLast(1).once('value', function(gamesSnapshot) {
           var lastGame = gamesSnapshot.val();
           var gameId = Object.keys(lastGame);
-          deferred.resolve(lastGame[gameId]);
+          if (option) {
+            deferred.resolve(gameId);
+          } else {
+            deferred.resolve(lastGame[gameId]);
+          }
         });
         return deferred.promise;
+      }
+
+      function addPlayer(playerId) {
+        var _this = this;
+        console.log(playerId);
+        UsersService.getUser(playerId)
+          .then(function(playerObj) {
+            playerObj.playerId = playerId;
+            _this.getLastGame('uid')
+              .then(function(gameId) {
+                var gameId = gameId[0];
+                gamesRef.child(gameId).child('players').push(playerObj)
+              });
+          })
       }
 
       /* 

@@ -15,7 +15,6 @@
       function getLobbyStatus() {
         GamesService.getLastGame()
           .then(function(gameData) {
-            console.log(gameData.openEnrollment);
             if (gameData.openEnrollment) {
               joinExistingLobby()
             } else {
@@ -26,13 +25,14 @@
 
       function joinExistingLobby() {
         console.log('joining existing room');
+        GamesService.addPlayer(userId);
       }
 
       function startNewLobby() {
-        GamesService.generateCategories()
-          .then(function(keys) {
-            console.log(keys);
-          })
+        GamesService.setupNewGame(userId);
+          // .then(function(keys) {
+          //   console.log(keys);
+          // })
         // console.log(GamesService.setupNewGame());
         // GamesService.getAllCatKeys()
         //   .then(function(data) {
