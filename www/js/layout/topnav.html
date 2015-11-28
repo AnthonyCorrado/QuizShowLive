@@ -1,6 +1,7 @@
 <div ng-controller="Topnav as vm">
   <ion-header-bar class="bar-stable">
     <h1 class="title">Quiz Show Live</h1>
-    <button class="button icon-right" ng-click="vm.logout()">Logout</button>
+    <button ng-hide="vm.userSession" class="button icon-right">Login</button>
+    <button ng-show="vm.userSession" class="button icon-right" ng-click="vm.logout()">Logout</button>
   </ion-header-bar>
 </div>

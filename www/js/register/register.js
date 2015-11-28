@@ -13,7 +13,8 @@
       vm.createUser = function() {
         var user = {
           email: vm.email,
-          password: vm.password
+          password: vm.password,
+          username: vm.username
         };
         Authenticator.createUser(user)
           .then(function(userData) {

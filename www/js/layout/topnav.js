@@ -5,15 +5,22 @@
   .module('app.layout')
   .controller('Topnav', Topnav);
 
-  Topnav.$inject = ['Authenticator', '$state']
+  Topnav.$inject = ['Authenticator', '$state', '$scope']
 
-  function Topnav(Authenticator, $state) {
+  function Topnav(Authenticator, $state, $scope) {
     var vm = this;
+    vm.userSession = Authenticator.userSession();
+    Authenticator.sessionChange();
 
     vm.logout = function() {
       Authenticator.logout();
       $state.go('login');
     };
+
+    // notified anytime auth status changes. Triggered from auth.service
+    $scope.$on('sessionChange', function(event, user) {
+      vm.userSession = user.authData;
+    })
 
   }  
 })();
