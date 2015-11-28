@@ -17,4 +17,4 @@ Built on the Ionic Framework (which is turn is built with Angular...which is bui
 If you have any feedback, comments, or questions, please reach out! Contact me through Github or via Gmail. The choice I leave up to you. Thanks in advance! 
 Anthony - anthonymcorrado@gmail.com
 
-* Cannot not actually win real prizes as of 11/28/15.
+! * Cannot actually win real prizes as of 11/28/15.
