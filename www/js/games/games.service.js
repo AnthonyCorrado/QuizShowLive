@@ -49,9 +49,9 @@
             console.log(categories);
             var gameId = createBaseGame();
             // save categories to pregame lobby
+            addPlayer(playerId, gameId);
             gamesRef.child(gameId).update({
-              categories: categories,
-              players: playerId
+              categories: categories
             })
 
           })
@@ -88,17 +88,21 @@
         return deferred.promise;
       }
 
-      function addPlayer(playerId) {
+      function addPlayer(playerId, gameId) {
         var _this = this;
         console.log(playerId);
         UsersService.getUser(playerId)
           .then(function(playerObj) {
             playerObj.playerId = playerId;
-            _this.getLastGame('uid')
-              .then(function(gameId) {
-                var gameId = gameId[0];
-                gamesRef.child(gameId).child('players').push(playerObj)
-              });
+            if (gameId) {
+              gamesRef.child(gameId).child('players').push(playerObj)
+            } else { // fetches last most recently created lobby if id not known/passed in
+              _this.getLastGame('uid')
+                .then(function(lastGameId) {
+                  var lastGameId = lastGameId[0];
+                  gamesRef.child(lastGameId).child('players').push(playerObj)
+                });
+            }
           })
       }
 
