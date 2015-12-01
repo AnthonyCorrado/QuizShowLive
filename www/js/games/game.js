@@ -11,9 +11,13 @@
       var vm = this;
       var gameId = $stateParams.gameId;
 
-      vm.game = GamesService.getGameDetails(gameId);
-      vm.players = vm.game;
-      vm.categoryNames = ['Science', 'Sports', 'History', 'Geography', 'Entertainment'];
+      GamesService.getGameDetails(gameId)
+        .then(function(gameDetails) {     
+          console.log(gameDetails);
+          vm.gameDetails = gameDetails;
+          vm.categories = vm.gameDetails.categories;
+          vm.players = vm.gameDetails.players
+        })
       vm.pointValues = [200, 400, 600, 800];
 
       console.log(gameId);

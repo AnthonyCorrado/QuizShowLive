@@ -36,9 +36,12 @@
         return $firebaseObject(gamesRef);
       };
 
-      function getGameDetails (gameId) {
-        var gamesRef = new Firebase('https://quizshowlive.firebaseio.com/games' + '/' + gameId);
-        return $firebaseObject(gamesRef)
+      function getGameDetails(gameId) {
+        var deferred = $q.defer();
+        var gameRef = gamesRef.child(gameId).once('value', function(gameSnapshot) {
+          deferred.resolve(gameSnapshot.val());
+        });
+        return deferred.promise;
       };
 
       function setupNewGame(playerId) {
@@ -87,6 +90,7 @@
         var _this = this;
         UsersService.getUser(playerId)
           .then(function(playerObj) {
+            playerObj.score = 0;
             playerObj.playerId = playerId;
             if (gameId) {
               gamesRef.child(gameId).child('players').push(playerObj)

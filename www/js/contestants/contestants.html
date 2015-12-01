@@ -1,7 +1,6 @@
 <div class="contestant-container">
   <div class="contestant-card" ng-repeat="(key, player) in playerNames track by $index">
-    {{playerNames[$index]}}
-    <!-- {{key}} -->
-    <!-- {{player.score}} -->
+   {{playerNames[key].username}}
+   <h2>{{playerNames[key].score}}</h2>
   </div>
 </div>
