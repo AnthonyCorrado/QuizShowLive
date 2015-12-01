@@ -49,10 +49,6 @@
             // save categories to pregame lobby
             addCategories(categories, gameId);
             addPlayer(playerId, gameId);
-            // gamesRef.child(gameId).update({
-            //   categories: categories
-            // })
-
           })
         return 'kittens';
       };
@@ -99,6 +95,12 @@
                 .then(function(lastGameId) {
                   var lastGameId = lastGameId[0];
                   gamesRef.child(lastGameId).child('players').push(playerObj)
+                  gamesRef.child(lastGameId).child('players').once('value', function(snapshot) {
+                    var numOfPlayers = Object.keys(snapshot.val()).length;
+                    if (numOfPlayers > 3) {
+                      gamesRef.child(lastGameId).update({ openEnrollment: false });
+                    }
+                  })
                 });
             }
           })
@@ -108,7 +110,6 @@
         var _this = this;
         var deferred = $q.defer();
         categories.forEach(function(category) {
-          console.log(category);
           gamesRef.child(gameId).child('categories').push(category)
         })
         return deferred.promise;
