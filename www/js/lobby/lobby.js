@@ -29,7 +29,11 @@
       }
 
       function startNewLobby() {
-        GamesService.setupNewGame(userId);
+        GamesService.setupNewGame(userId)
+          .then(function(gameId) {
+            console.log(gameId);
+            $state.go('game', { gameId: gameId})
+          })
           // .then(function(keys) {
           //   console.log(keys);
           // })

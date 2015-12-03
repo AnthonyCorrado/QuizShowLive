@@ -65,6 +65,7 @@
       .state('game', {
         url: '/games/:gameId',
         templateUrl: 'js/games/game.html',
+        params: { gameId: 'test' },
         controller: 'Game',
         controllerAs: 'vm'
       })

@@ -10,6 +10,7 @@
     function Game($scope, $stateParams, GamesService) {
       var vm = this;
       var gameId = $stateParams.gameId;
+      console.log('gameId', gameId)
 
       GamesService.getGameDetails(gameId)
         .then(function(gameDetails) {     
@@ -20,6 +21,5 @@
         })
       vm.pointValues = [200, 400, 600, 800];
 
-      console.log(gameId);
     }
 })();

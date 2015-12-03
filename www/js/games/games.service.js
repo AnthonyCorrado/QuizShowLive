@@ -45,15 +45,16 @@
       };
 
       function setupNewGame(playerId) {
+        var deferred = $q.defer();
         var gameId;
         generateCategories()
           .then(function(categories) {
             var gameId = createBaseGame();
             // save categories to pregame lobby
-            addCategories(categories, gameId);
-            addPlayer(playerId, gameId);
+            // deferred.resolve(addCategories(categories, gameId));
+            deferred.resolve(addPlayer(playerId, gameId));
           })
-        return 'kittens';
+        return deferred.promise;
       };
 
       function createBaseGame(categories, playerId) {
@@ -108,6 +109,7 @@
                 });
             }
           })
+        return gameId;
       }
 
       function addCategories(categories, gameId) {
