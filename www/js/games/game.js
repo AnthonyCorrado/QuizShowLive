@@ -13,8 +13,9 @@
       console.log('gameId', gameId)
 
       GamesService.getGameDetails(gameId)
-        .then(function(gameDetails) {     
+        .then(function(gameDetails) {   
           console.log(gameDetails);
+          GamesService.getAllGames(gameId).$bindTo($scope, 'vm.gameDetails');
           vm.gameDetails = gameDetails;
           vm.categories = vm.gameDetails.categories;
           vm.players = vm.gameDetails.players

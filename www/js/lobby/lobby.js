@@ -25,7 +25,10 @@
 
       function joinExistingLobby() {
         console.log('joining existing room');
-        GamesService.addPlayer(userId);
+        GamesService.addPlayer(userId)
+          .then(function(gameId) {
+            $state.go('game', { gameId: gameId})
+          })
       }
 
       function startNewLobby() {

@@ -49,20 +49,36 @@
         var gameId;
         generateCategories()
           .then(function(categories) {
-            var gameId = createBaseGame();
-            // save categories to pregame lobby
-            // deferred.resolve(addCategories(categories, gameId));
-            deferred.resolve(addPlayer(playerId, gameId));
+            console.log(categories);
+            createBaseGame()
+              .then(function(newGameId) {
+                addPlayer(playerId, newGameId)
+                  .then(function(data) {
+                    addCategories(categories, newGameId)
+                      .then(function(data) {
+                        deferred.resolve(newGameId);
+                      })
+                  })
+              })
           })
         return deferred.promise;
       };
 
       function createBaseGame(categories, playerId) {
+        var deferred = $q.defer();
         var gameData = gamesRef.push({
           timestamp: Firebase.ServerValue.TIMESTAMP,
           openEnrollment: true
+        }, function(error) {
+          if (error) {
+            console.log('An error pushing to Firebase:', error);
+            deferred.reject(error);
+          } else {
+            console.log('saved successfully');
+            deferred.resolve(gameData.key());
+          }
         });
-        return gameData.key();
+        return deferred.promise;
 
       }
 
@@ -89,13 +105,23 @@
 
       function addPlayer(playerId, gameId) {
         var _this = this;
+        var deferred = $q.defer();
         UsersService.getUser(playerId)
           .then(function(playerObj) {
             playerObj.score = 0;
             playerObj.playerId = playerId;
             if (gameId) {
-              gamesRef.child(gameId).child('players').push(playerObj)
+              gamesRef.child(gameId).child('players')
+                .push(playerObj, function(error) {
+                  if (error) {
+                    console.log("There is an error with adding player:", error)
+                  } else {
+                    console.log('no errors!!!');
+                    deferred.resolve('success');
+                  }
+                })
             } else { // fetches last most recently created lobby if id not known/passed in
+              console.log('the ELSE was passed in')
               _this.getLastGame('uid')
                 .then(function(lastGameId) {
                   var lastGameId = lastGameId[0];
@@ -105,18 +131,27 @@
                     if (numOfPlayers > 3) {
                       gamesRef.child(lastGameId).update({ openEnrollment: false });
                     }
+                    deferred.resolve(lastGameId);
                   })
                 });
             }
-          })
-        return gameId;
+          });
+        return deferred.promise;
       }
 
       function addCategories(categories, gameId) {
         var _this = this;
         var deferred = $q.defer();
         categories.forEach(function(category) {
-          gamesRef.child(gameId).child('categories').push(category)
+          gamesRef.child(gameId).child('categories')
+            .push(category, function(error) {
+              if (error) {
+                  console.log("There is an error with adding categories:", error)
+                } else {
+                  console.log('no errors here either  !!!');
+                  deferred.resolve('success');
+                }
+            })
         })
         return deferred.promise;
       }
